@@ -1,0 +1,378 @@
+@startuml
+
+class LoginHandlerInterceptor implements HandlerInterceptor {
+    preHandle()
+    postHandle()
+    afterCompletion()
+}
+
+class MyLocaleResolver implements LocaleResolver {
+    resolveLocale()
+    setLocale()
+}
+
+class MyMvcConfig extends WebMvcConfigurerAdapter {
+    +webMvcConfigurerAdapter()
+    +localeResolver()
+}
+
+
+class AdminController {
+
+    StudentDao studentDao;
+    DepartmentDao departmentDao;
+    StuCourseDao stuCourseDao;
+    CourseDao courseDao;
+    TeacherDao teacherDao;
+    TechCourseDao techCourseDao;
+
+    +list()
+    +toStuAddPage()
+    +stuAdding()
+    +toStuEditPage()
+    +updateStudent()
+    +deleteStudent()
+    +toStuDetialPage()
+    +toStuAddCoursePage()
+    +stuAddCourse()
+    +deleteStudentCourse()
+    +teachList()
+    +addTechPage()
+    +addTech()
+    +eidtTechPage()
+    +editTech()
+    +deleteTecher()
+    +toTeacherDetialPage()
+    +deleteTeacherCourse()
+}
+
+class CourseController {
+
+    DepartmentDao departmentDao;
+    CourseDao courseDao;
+    CourseStudentDao courseStudentDao;
+    TeacherDao teacherDao;
+    StuCourseDao stuCourseDao;
+
+    +coursesList()
+    +addCoursePage()
+    +addCourse()
+    +courseDetilPage()
+    +eidtCoursePage()
+    +editCourse()
+    +deleteCourse()
+    +deleteCourse()
+    +editGrade()
+    +editCourseGrade()
+}
+
+class LoginController {
+
+    AdminMapper adminMapper;
+    StudentMapper studentMapper;
+    TeacherMapper teacherMapper;
+
+    +login()
+}
+
+class StudentController {
+
+    DepartmentDao departmentDao;
+    TechCourseDao techCourseDao;
+    StudentDao studentDao;
+    StuCourseDao stuCourseDao;
+    CourseDao courseDao;
+
+    +studentMain()
+    +toSpecStuEditPage()
+    +updateSpecStudent()
+    +toSpecStuAddCoursePage()
+    +sepcStuAddCourse()
+    +deleteSpecStudentCourse()
+    +stuCoursesList()
+}
+
+class TeacherController {
+
+    DepartmentDao departmentDao;
+    TeacherDao teacherDao;
+    TechCourseDao techCourseDao;
+    CourseDao courseDao;
+    CourseStudentDao courseStudentDao;
+    StuCourseDao stuCourseDao;
+
+    +teacherMain()
+    +toSpecTeacEditPage()
+    +updateSpecTeacher()
+    +deleteSpecTeacherCourse()
+    +addCoursePage()
+    +addCourse()
+    +stuCoursesList()
+    +eidtCoursePage()
+    +editCourse()
+    +courseDetilPage()
+    +editGrade()
+    +editCourseGrade()
+    +deleteSpecStudentCourse()
+}
+
+class CourseDao {
+    -DepartmentDao departmentDao;
+    -CourseMapper courseMapper;
+    -Map courseMap
+    -List courses
+
+    +save()
+    +editGrade()
+    +getAll()
+    +get()
+    +delete(Integer id)
+}
+
+class CourseStudentDao {
+
+    -CourseMapper courseMapper;
+    -Map<> courseStudentMap
+    -List<> courseStudents
+
+    +getAllStudent()
+    +getAllTeacher()
+    +get()
+
+}
+
+
+class DepartmentDao {
+
+	DepartmentMapper departmentMapper;
+	-Map<> departmentMap
+	-List<> departments
+
+	+getDepartments()
+	+getDepartment()
+
+}
+
+class StuCourseDao {
+
+    -DepartmentDao departmentDao;
+    -StudentMapper studentMapper;
+
+    -Map<> stuCourseMap
+    -List<> stuCourses
+
+    +save()
+    +getAll()
+    +getAllMap()
+    +get()
+    +delete()
+}
+
+class StudentDao {
+
+	-DepartmentDao departmentDao;
+	-StudentMapper studentMapper;
+-Map<> employees
+-List<> students
+
+	+save()
+	+getAll()
+	+get()
+	+delete()
+}
+
+class TeacherDao {
+
+    -DepartmentDao departmentDao;
+    -TeacherMapper teacherMapper;
+    -Map<> teacherMap
+    -List<> teachers
+    +save()
+    +getAll()
+    +get()
+    +delete()
+}
+
+class TechCourseDao {
+
+    -DepartmentDao departmentDao;
+    -TeacherMapper teacherMapper;
+    -CourseMapper courseMapper;
+    -CourseDao courseDao;
+    -Map<> teacherCourseMap
+    -List<TeacherCourse> teacherCourses
+
+    +getAll()
+    +get()
+    +delete()
+}
+
+class Admin {
+
+    -Integer adminID;
+    -String username;
+    -String password;
+
++get()
+    +set()
+}
+
+
+class Course {
+
+    DepartmentDao departmentDao;
+
+    -Integer id;
+    -String courseCode;
+    -String courseName;
+    -Integer courseCapacity;
+    -Integer departmentId;
+    -String departmentName;
+    -String name;
+    -Integer count
+    -List<> teacher
+
+    +get()
+    +set()
+}
+
+class CourseStudent {
+
+    -Integer id;
+    -String name;
+    -Integer gender;
+    -String email;
+    -String phoneNumber;
+    -Integer grade;
+    -String departmentName;
+        +get()
+        +set()
+    }
+
+class CSG {
+    -Integer cid;
+    -Integer sid;
+    -Integer grade;
+        +get()
+        +set()
+    }
+
+    class Department {
+
+   	-Integer id;
+   	-String departmentName;
+   	    +get()
+        +set()
+   	}
+   	class StuCourse {
+
+
+        DepartmentDao departmentDao;
+
+        -Integer id;
+        -String courseCode;
+        -String courseName;
+        -Integer grade;
+        -Integer departmentId;
+        -String departmentName;
+        -String name;
+            +get()
+            +set()
+        }
+        class Student {
+
+        	-Integer id;
+            -String name;
+            -String username;
+            -String password;
+            -String email;
+            -String phoneNumber;
+            -Integer gender;
+            -Integer departmentId;
+            -String departmentName;
+                +get()
+                +set()
+            }
+            class Teacher {
+
+                -Integer id;
+                -String name;
+                -String username;
+                -String password;
+                -String email;
+                -String phoneNumber;
+                -Integer gender;
+                -Integer departmentId;
+                -String departmentName;
+                    +get()
+                    +set()
+                }
+
+                class TeacherCourse {
+
+
+                    -Integer id;
+                    -String courseCode;
+                    -String courseName;
+                    -Integer count
+                    -Integer departmentId;
+                    -String departmentName;
+                    -String name;
+                        +get()
+                        +set()
+                    }
+
+    interface AdminMapper {
+
+        findByNameAndPassword()
+    }
+     interface CourseMapper {
+
+
+         selectAllCourse()
+         clearCourseTeacher()
+         countStudent()
+         idCountStudent()
+         addCourse()
+         addCourseTeacher()
+         deleteCourse()
+         editCourse()
+         getCourseId()
+         getCourseStudent()
+         getCourseTeacher()
+         editGrade();
+     }
+
+      interface DepartmentMapper {
+
+          allDepartment();
+      }
+
+      interface StudentMapper {
+
+         findByNameAndPassword()
+         selectAllStudent()
+         insert()
+         editStudent()
+         deleteStudent()
+         selectStudentCoures()
+         addCourse()
+         deleteStudentCourse()
+         selectCount()
+      }
+
+      interface TeacherMapper {
+
+
+          findByNameAndPassword()
+          selectAllTeacher()
+          addTeacher()
+          editTeacher()
+          deleteTeacher()
+          selectTeacherCoures()
+          deleteTeacherCourse()
+          checkCourse();
+      }
+
+
+@enduml
